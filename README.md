@@ -6,4 +6,4 @@ People like music. People also like live music. Our app is designed to take a us
 ## User Story
 AS A melomaniac </br>
 I WANT to be able to link my spotify music to last fm </br>
-SO I can see relevant concerts coming near me for the music I like </br>
+SO I can see relevant concerts coming up near me for the music I like </br>
