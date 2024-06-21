@@ -1,6 +1,6 @@
 // set up spotify authorization
-const spotifyClientID = `5e0f086d63214b34941f736646713e5c`;
-const spotifyRedirectUri = `Cneale92.github.io/gigON/stats.html`;
+const spotifyClientId = `5e0f086d63214b34941f736646713e5c`;
+const spotifyRedirectUri = `https://cneale92.github.io/gigON/stats.html`;
 const spotifyScopes = `user-top-read`; 
 
 // write a function to redirect the user to the Spotify login when they click the login button
