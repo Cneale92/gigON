@@ -22,3 +22,17 @@ WHEN I click the save button </br>
 THEN I can save a concert to a list of concerts I am interested in </br>
 WHEN I return to the homepage </br>
 THEN I can view my favorited concerts </br>
+
+## API IDs/Spotify Log In
+spotify api client id: </br>
+5e0f086d63214b34941f736646713e5c </br>
+client secret: </br>
+9a555fd8b04e456991c26114473d1de9 </br>
+api key for lastfm: </br>
+311009ad05c5e835188a55a88b9d2955 </br>
+shared secret?: </br>
+237970ff765230dbd3019b755339b46a </br>
+spotify tester account: </br>
+--- username: trygigon@gmail.com </br>
+--- password: l0v3th!s4pp! (edited)  </br>
+
