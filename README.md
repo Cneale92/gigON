@@ -36,3 +36,7 @@ spotify tester account: </br>
 --- username: trygigon@gmail.com </br>
 --- password: l0v3th!s4pp! (edited)  </br>
 
+## Wire Frame Images
+![gigON Wire Frame Page 1](https://github.com/Cneale92/gigON/blob/main/wireframes/page1_v2.png?raw=true)
+![gigON Wire Frame Page 2](https://github.com/Cneale92/gigON/blob/main/wireframes/page2.png?raw=true)
+![gigON Wire Frame Page 3](https://github.com/Cneale92/gigON/blob/main/wireframes/page3.png?raw=true)
