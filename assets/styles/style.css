@@ -1,0 +1,10 @@
+#heroBanner{
+
+    display: flex;
+
+    justify-content: center;
+
+    --bannerColor: rgba(255, 166, 0, 0.501);
+     background-color: var(--bannerColor);  /* Color may be used more than once */
+
+}
