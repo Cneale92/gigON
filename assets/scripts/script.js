@@ -10,6 +10,6 @@ function redirectToSpotifyLogin() {
 }
  
 // use an event listener for the login button
-document.querySelector('.button').addEventListener('click', redirectToSpotifyLogin);
+document.querySelector('#spotifyAuthenticationBtn').addEventListener('click', redirectToSpotifyLogin);
 
 
