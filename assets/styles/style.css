@@ -82,9 +82,8 @@ header{
 
 #heroBanner{
 
-    display: flex;
+    
 
-    flex-direction: column;
 
     --bannerColor: rgba(255, 166, 0, 0.501);
      background-color: var(--bannerColor);  /* Color may be used more than once */
@@ -93,9 +92,10 @@ header{
 
 #exclamationGuy{
 
-    scale:50%;
-
-    transform: translateY(-1250px);
+    
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 
 }
 
@@ -109,6 +109,7 @@ header{
 
     color:black;
 
-    transform: translateY(-1400px);
+    transform:translateY(-200px); 
+    
 
 }
