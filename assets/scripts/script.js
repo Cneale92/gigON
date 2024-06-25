@@ -102,37 +102,6 @@ async function fetchAccessToken(code) {
 
 ////// Everything below this is for the stats page
 
-const generateRandomString = (length) => {
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const values = crypto.getRandomValues(new Uint8Array(length));
-  return Array.from(values)
-    .map((x) => possible[x % possible.length])
-    .join("");
-};
-
-const sha256 = async (plain) => {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(plain);
-  return window.crypto.subtle.digest("SHA-256", data);
-};
-
-const base64encode = (input) => {
-  return btoa(String.fromCharCode(...new Uint8Array(input)))
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-};
-
-const generateCodeVerifier = () => {
-  return generateRandomString(64);
-};
-
-const generateCodeChallenge = async (codeVerifier) => {
-  const hashed = await sha256(codeVerifier);
-  return base64encode(hashed);
-};
-
 const getRefreshToken = async () => {
   const refreshToken = localStorage.getItem("refresh_token");
   const codeVerifier = localStorage.getItem("code_verifier");
@@ -170,9 +139,6 @@ const getRefreshToken = async () => {
     return null; // Return null or handle error as appropriate
   }
 };
-
-const codeVerifier = generateCodeVerifier();
-localStorage.setItem("code_verifier", codeVerifier);
 
 generateCodeChallenge(codeVerifier)
   .then((codeChallenge) => {
