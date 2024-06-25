@@ -1,0 +1,114 @@
+header{
+
+    background-color: rgba(124, 151, 4, 0.26); /*Not final */
+
+    display: flex;
+
+    flex-direction: row;
+
+    width:1920px;
+
+    height:125px;
+
+}
+
+#logoCoupling{
+
+    margin-left:20px;
+    margin-right:70px;
+}
+
+#simplifiedLogo{
+
+    font-size: 48px;
+
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+    color:black;
+
+}
+
+#logoSubtitle{
+
+    margin-top:-15px;
+
+}
+
+#navButtons{
+
+    margin-top: auto;
+    margin-bottom: auto;
+
+    display: flex; 
+
+    align-items: center;
+
+}
+
+.navBtn{
+
+    width:350px;
+    margin:30px;
+    
+    border:none;
+    background-color:rgba(255, 166, 0, 0.501);
+    border-radius:10px;
+
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: x-large;
+
+    padding:10px;
+
+    justify-content: center;
+
+}
+
+#spotifyAuthenticationBtn{
+
+    margin-left:300px;
+    width:500px;
+    padding:20px;
+    font-size: xx-large;
+
+}
+
+
+
+
+
+
+
+
+
+#heroBanner{
+
+    display: flex;
+
+    flex-direction: column;
+
+    --bannerColor: rgba(255, 166, 0, 0.501);
+     background-color: var(--bannerColor);  /* Color may be used more than once */
+    
+}
+
+#exclamationGuy{
+
+    scale:50%;
+
+    transform: translateY(-1250px);
+
+}
+
+#promptText{
+
+    text-align: center;
+
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+    font-size: 48px;
+
+    color:black;
+
+    transform: translateY(-1400px);
+
+}
