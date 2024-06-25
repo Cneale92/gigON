@@ -2,9 +2,12 @@
 
 // write a function to extract access token from the URL
 
+
 // write an if/else statement to redirect the user to the login if no access token is found, or maybe do this with a modal?
 
+
 // write a function to fetch the user's top artists from Spotify
+
 
 // write a function to display the top artists (implement according to the HTML structure)
 
