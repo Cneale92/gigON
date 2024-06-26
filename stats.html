@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gigON! Stats</title>
     <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://*.spotify.com https://api.spotify.com https://www.google-analytics.com https://*.ingest.sentry.io https://stats.g.doubleclick.net;">
-    <title>gigON!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/styles/style.css">
     <link rel="stylesheet" href="./assets/styles/stats.css">
 </head>
+
 <body>
 
 <main>   
-    <h1>Here are your top artists:</h1>
-    <div id="topArtist">
+    <div id="topArtistContainer">
+        <h1>Here are your top artists:</h1>
+
+<!---not sure if we want to use href or if we want to us JS on.click to select artist-->
+        <div id="topArtist">
+
         <ol type="1">
-            <!-- List of artists will be dynamically added by the API-->
-          </ol>
+            <li><a href="artist1">artist name</a> <img class="artist1img" src=""> </li>
+                <br>
+            <li><a href="artist2">artist name</a> </li>
+                <br>
+            <li><a href="artist3">artist name</a></li>
+
     </div>
 </main>
     <p id="description">Select an artist!</p>
