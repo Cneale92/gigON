@@ -95,5 +95,3 @@ const fetchAccessToken = async (code) => {
   }
 };
 
-////// Everything below this is for the stats page
-
