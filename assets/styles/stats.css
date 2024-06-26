@@ -7,19 +7,22 @@ body{
         background-color:rgba(255, 166, 0, 0.501);
         height:450px;
         border-style: solid;
-        margin-top: 20px;
+        margin-top: 25px;
+        margin-left: 20px;
         padding: 30px;
         width:350px;
         border-radius: 15%;
         font-size: large;
         font-weight: bold;
-        
-    
     }
     
-#topArtist {
-   
+#topartist {
+    margin:auto;
 
+}
+
+.artist1img {
+    
 }
 
 #description {
@@ -29,17 +32,21 @@ body{
     margin-left: 700px;
     margin-right: 85px;
     padding: 55px;
-    width:auto;
-    height: fit-content;
     text-align: center;
     font-size: x-large;
     
-   
 }
 
 .gig_chr {
     display:flex;
     margin-left: 950px;
     margin-right: 20px;
-    margin-top:150px;
+    margin-top:100px;
+
+}
+
+img {
+    width: 125px;
+    height: 250px;
+    margin-bottom: 10px;
 }
