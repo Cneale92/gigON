@@ -1,5 +1,11 @@
 const clientId = "5e0f086d63214b34941f736646713e5c";
 
+// Get authorization code from URL
+const getCodeFromUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("code");
+};
+
 // Get the access token from localStorage
 const getAccessToken = () => {
   return window.localStorage.getItem("access_token");
@@ -39,6 +45,44 @@ const getRefreshToken = async () => {
     return null;
   }
 };
+
+// fetch access token 
+const fetchAccessToken = async (code) => {
+  const codeVerifier = window.localStorage.getItem("code_verifier");
+
+  const payload = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      client_id: clientId,
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: redirectUri,
+      code_verifier: codeVerifier,
+    }),
+  };
+
+  try {
+    const response = await fetch(
+      "https://accounts.spotify.com/api/token",
+      payload
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    window.localStorage.setItem("access_token", data.access_token);
+    window.localStorage.setItem("refresh_token", data.refresh_token);
+    return data.access_token;
+  } catch (error) {
+    console.error("Error fetching access token:", error);
+    return null;
+  }
+};
+
 
 // Function to fetch the top artists from the Spotify APII
 
