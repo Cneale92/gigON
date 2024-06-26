@@ -7,9 +7,7 @@ const generateRandomString = (length) => {
   const possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const values = crypto.getRandomValues(new Uint8Array(length));
-  return Array.from(values)
-    .map((x) => possible[x % possible.length])
-    .join("");
+  return values.reduce((acc, x) => acc + possible[x % possible.length], "");
 };
 
 // Asynchronous function to hash a plains string using SHA-256 algorithm
@@ -34,6 +32,7 @@ const generateCodeChallenge = async (codeVerifier) => {
   return base64encode(hashed);
 };
 
+// Function to redirect the user to the spotify login
 const redirectToSpotifyLogin = async () => {
   const codeVerifier = generateRandomString(64);
   window.localStorage.setItem("code_verifier", codeVerifier);
@@ -52,19 +51,16 @@ const redirectToSpotifyLogin = async () => {
 
   authUrl.search = new URLSearchParams(params).toString();
   window.location.href = authUrl.toString();
-  return;
-  };
+};
 
+// Evert listener for Spotify authentication button click
 document
   .querySelector("#spotifyAuthenticationBtn")
   .addEventListener("click", redirectToSpotifyLogin);
 
-
 // Asynchronous function to exchange authorization code for access token
-async function fetchAccessToken(code) {
-  const codeVerifier = localStorage.getItem("code_verifier");
-
-  // Payload for token request to Spotify
+const fetchAccessToken = async (code) => {
+  const codeVerifier = window.localStorage.getItem("code_verifier");
 
   const payload = {
     method: "POST",
@@ -81,108 +77,23 @@ async function fetchAccessToken(code) {
   };
 
   try {
-    const response = await fetch("https://accounts.spotify.com/api/token", payload);
+    const response = await fetch(
+      "https://accounts.spotify.com/api/token",
+      payload
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
     const data = await response.json();
 
-    localStorage.setItem("access_token", data.access_token);
-    localStorage.setItem("refresh_token", data.refresh_token);
+    window.localStorage.setItem("access_token", data.access_token);
+    window.localStorage.setItem("refresh_token", data.refresh_token);
     return data.access_token;
   } catch (error) {
     console.error("Error fetching access token:", error);
     return null;
   }
 };
+
 ////// Everything below this is for the stats page
 
-const getAccessToken = () => {
-    return localStorage.getItem("access_token");
-};
-
-const getRefreshToken = async () => {
-  const refreshToken = localStorage.getItem("refresh_token");
-  const url = "https://accounts.spotify.com/api/token";
-
-  const payload = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-      client_id: clientId,
-   }),
-  };
-
-  try {
-    const response = await fetch(url, payload);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    localStorage.setItem("access_token", data.access_token);
-    localStorage.setItem("refresh_token", data.refresh_token);
-    return data.access_token;
-  } catch (error) {
-    console.error("Error fetching refresh token:", error);
-    return null; 
-  }
-};
-// Function to fetch the top artists from the Spotify APII
-
-const fetchTopArtists = async (token) => {
-  try {
-    const response = await fetch("https://api.spotify.com/v1/me/top/artists", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log("API Response:", data); // Log entire response
-    return data.items; // Return the array of top artists
-  } catch (error) {
-    console.error("Error fetching top artists:", error);
-    return []; // Return empty array if there's an error
-  }
-};
-
-// Function to display top artists on the page
-const displayTopArtists = (artists) => {
-  const topArtistOl = document.querySelector("#topArtist ol");
-
-  artists.forEach((artist, index) => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = `results.html?artist=${encodeURIComponent(artist.name)}`;
-    a.textContent = `${index + 1}. ${artist.name}`;
-    li.appendChild(a);
-    topArtistOl.appendChild(li);
-  });
-};
-
-// Main function to fetch and display top artists
-const main = async () => {
-  try {
-    let accessToken = getAccessToken();
-    if (!accessToken) {
-      // If access token is not found, try to refresh it
-      accessToken = await getRefreshToken();
-      if (!accessToken) {
-        console.error("Access token not found or could not be refreshed.");
-      }
-    }
-
-    const topArtists = await fetchTopArtists(accessToken);
-    console.log("Top Artists:", topArtists); // Log top artists to check if data is fetched correctly
-    displayTopArtists(topArtists);
-  } catch (error) {
-    console.error("Error in main function:", error);
-  }
-};
-
-// Call the main function to start fetching and displaying top artists
-main();
