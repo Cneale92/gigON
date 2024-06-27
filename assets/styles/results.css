@@ -5,7 +5,7 @@ body{
 }
 
 
-#allDiv{
+#allDiv {
 
     display:flex;
     flex-direction: row;

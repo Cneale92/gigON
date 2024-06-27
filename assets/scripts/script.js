@@ -1,68 +1,130 @@
 const clientId = "5e0f086d63214b34941f736646713e5c";
 const redirectUri = "https://cneale92.github.io/gigON/stats.html";
-const scope = "user-read-private user-read-email";
+const authorizationEndpoint = "https://accounts.spotify.com/authorize";
+const tokenEndpoint = "https://accounts.spotify.com/api/token";
+const scope = "user-read-private user-read-email user-top-read";
 
-// Function that generates a random string of specified length
-const generateRandomString = (length) => {
+// Data structure that manages the current active token, caching it in localStorage
+const currentToken = {
+  get access_token() {
+    return localStorage.getItem("access_token") || null;
+  },
+  get refresh_token() {
+    return localStorage.getItem("refresh_token") || null;
+  },
+  get expires_in() {
+    return localStorage.getItem("expires_in") || null;
+  },
+  get expires() {
+    return localStorage.getItem("expires") || null;
+  },
+
+  save: function (response) {
+    const { access_token, refresh_token, expires_in } = response;
+    localStorage.setItem("access_token", access_token);
+    localStorage.setItem("refresh_token", refresh_token);
+    localStorage.setItem("expires_in", expires_in);
+
+    const now = new Date();
+    const expiry = new Date(now.getTime() + expires_in * 1000);
+    localStorage.setItem("expires", expiry);
+  },
+};
+
+// On page load, try to fetch auth code from current browser search URL
+const args = new URLSearchParams(window.location.search);
+const code = args.get("code");
+
+// If we find a code, we're in a callback, do a token exchange
+if (code) {
+  (async () => {
+    const token = await getToken(code);
+    currentToken.save(token);
+
+    // Remove code from URL so we can refresh correctly.
+    const url = new URL(window.location.href);
+    url.searchParams.delete("code");
+
+    const updatedUrl = url.search ? url.href : url.href.replace("?", "");
+    window.history.replaceState({}, document.title, updatedUrl);
+  })();
+}
+
+// If we have a token, we're logged in, so fetch user data and render logged in template
+if (currentToken.access_token) {
+  (async () => {
+    const userData = await getUserData();
+    const topArtists = await getTopArtists();
+    const topTracks = await getTopTracks();
+
+    //combined user data with top artists and tracks to simplify code down the line for binding
+    const combinedData = {
+      ...userData,
+      top_artists: topArtists,
+      top_tracks: topTracks,
+    };
+
+    console.log("User data fetched:", combinedData);
+    renderTemplate("main", "logged-in-template", combinedData);
+    renderTemplate("oauth", "oauth-template", currentToken);
+
+    // save top artists to local storage to use in results page
+    localStorage.setItem(
+      "top_artists",
+      JSON.stringify(combinedData.top_artists.items)
+    );
+  })();
+} else {
+  // Otherwise we're not logged in, so render the login template
+  renderTemplate("main", "login");
+}
+
+async function redirectToSpotifyAuthorize() {
+  console.log("Redirecting to Spotify for authorization...");
+
   const possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const values = crypto.getRandomValues(new Uint8Array(length));
-  return values.reduce((acc, x) => acc + possible[x % possible.length], "");
-};
+  const randomValues = crypto.getRandomValues(new Uint8Array(64));
+  const randomString = randomValues.reduce(
+    (acc, x) => acc + possible.charAt(x % possible.length),
+    ""
+  );
 
-// Asynchronous function to hash a plains string using SHA-256 algorithm
-const sha256 = async (plain) => {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(plain);
-  return window.crypto.subtle.digest("SHA-256", data);
-};
+  const code_verifier = randomString;
+  const data = new TextEncoder().encode(code_verifier);
+  const hashed = await crypto.subtle.digest("SHA-256", data);
 
-// Function to base64 encode binary input
-
-const base64encode = (input) => {
-  return btoa(String.fromCharCode(...new Uint8Array(input)))
+  const code_challenge_base64 = btoa(
+    String.fromCharCode(...new Uint8Array(hashed))
+  )
     .replace(/=/g, "")
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
-};
 
-// Asynchronous function to generate code challenge from code verifier
-const generateCodeChallenge = async (codeVerifier) => {
-  const hashed = await sha256(codeVerifier);
-  return base64encode(hashed);
-};
+  window.localStorage.setItem("code_verifier", code_verifier);
 
-// Function to redirect the user to the spotify login
-const redirectToSpotifyLogin = async () => {
-  const codeVerifier = generateRandomString(64);
-  window.localStorage.setItem("code_verifier", codeVerifier);
-
-  const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-  const authUrl = new URL("https://accounts.spotify.com/authorize");
+  const authUrl = new URL(authorizationEndpoint);
   const params = {
     response_type: "code",
     client_id: clientId,
-    scope,
+    scope: scope,
     code_challenge_method: "S256",
-    code_challenge: codeChallenge,
-    redirect_uri: redirectUri,
+    code_challenge: code_challenge_base64,
+    redirect_uri: redirectUrl,
   };
 
   authUrl.search = new URLSearchParams(params).toString();
-  window.location.href = authUrl.toString();
-};
+  console.log(`Auth URL: ${authUrl.toString()}`);
+  window.location.href = authUrl.toString(); // Redirect the user to the authorization server for login
+}
 
-// Evert listener for Spotify authentication button click
-document
-  .querySelector("#spotifyAuthenticationBtn")
-  .addEventListener("click", redirectToSpotifyLogin);
+// Spotify API Calls
 
-// Asynchronous function to exchange authorization code for access token
-const fetchAccessToken = async (code) => {
-  const codeVerifier = window.localStorage.getItem("code_verifier");
+// function to get token from local storage
+async function getToken(code) {
+  const code_verifier = localStorage.getItem("code_verifier");
 
-  const payload = {
+  const response = await fetch(tokenEndpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -70,28 +132,155 @@ const fetchAccessToken = async (code) => {
     body: new URLSearchParams({
       client_id: clientId,
       grant_type: "authorization_code",
-      code,
-      redirect_uri: redirectUri,
-      code_verifier: codeVerifier,
+      code: code,
+      redirect_uri: redirectUrl,
+      code_verifier: code_verifier,
     }),
-  };
+  });
 
-  try {
-    const response = await fetch(
-      "https://accounts.spotify.com/api/token",
-      payload
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
+  return await response.json();
+}
 
-    window.localStorage.setItem("access_token", data.access_token);
-    window.localStorage.setItem("refresh_token", data.refresh_token);
-    return data.access_token;
-  } catch (error) {
-    console.error("Error fetching access token:", error);
-    return null;
+// function to refresh the token
+async function refreshToken() {
+  const response = await fetch(tokenEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      client_id: clientId,
+      grant_type: "refresh_token",
+      refresh_token: currentToken.refresh_token,
+    }),
+  });
+
+  return await response.json();
+}
+/// function to retrieve user data from spotify
+async function getUserData() {
+  const response = await fetch("https://api.spotify.com/v1/me", {
+    method: "GET",
+    headers: { Authorization: "Bearer " + currentToken.access_token },
+  });
+
+  return await response.json();
+}
+
+// function to retrieve user's top artists
+async function getTopArtists() {
+  const response = await fetch("https://api.spotify.com/v1/me/top/artists", {
+    method: "GET",
+    headers: { Authorization: "Bearer " + currentToken.access_token },
+  });
+
+  return await response.json();
+}
+
+// function to retrieve user's top tracks
+async function getTopTracks() {
+  const response = await fetch("https://api.spotify.com/v1/me/top/tracks", {
+    method: "GET",
+    headers: { Authorization: "Bearer " + currentToken.access_token },
+  });
+
+  return await response.json();
+}
+
+// Click handlers
+
+async function loginWithSpotifyClick() {
+  await redirectToSpotifyAuthorize();
+}
+
+async function logoutClick() {
+  localStorage.clear();
+  window.location.href = redirectUrl;
+}
+
+async function refreshTokenClick() {
+  const token = await refreshToken();
+  currentToken.save(token);
+  renderTemplate("oauth", "oauth-template", currentToken);
+}
+
+// HTML Template Rendering with basic data binding - demoware only.
+function renderTemplate(targetId, templateId, data = null) {
+  const template = document.getElementById(templateId);
+  if (!template) {
+    console.error(`Template with ID '${templateId}' not found.`);
+    return;
   }
-};
+
+  const clone = template.content.cloneNode(true);
+
+  const elements = clone.querySelectorAll("*");
+  elements.forEach((ele) => {
+    const bindingAttrs = [...ele.attributes].filter((a) =>
+      a.name.startsWith("data-bind")
+    );
+
+    bindingAttrs.forEach((attr) => {
+      const target = attr.name
+        .replace(/data-bind-/, "")
+        .replace(/data-bind/, "");
+      const targetType = target.startsWith("onclick") ? "HANDLER" : "PROPERTY";
+      const targetProp = target === "" ? "innerHTML" : target;
+
+      const prefix = targetType === "PROPERTY" ? "data." : "";
+      const expression = prefix + attr.value.replace(/;\n\r\n/g, "");
+
+      // Evaluate and bind the expression to the element
+      try {
+        ele[targetProp] =
+          targetType === "PROPERTY"
+            ? eval(expression)
+            : () => {
+                eval(expression);
+              };
+        ele.removeAttribute(attr.name);
+      } catch (ex) {
+        console.error(`Error binding ${expression} to ${targetProp}`, ex);
+      }
+    });
+  });
+
+  const target = document.getElementById(targetId);
+  if (!target) {
+    console.error(`Target element with ID '${targetId}' not found.`);
+    return;
+  }
+  target.innerHTML = "";
+  target.appendChild(clone);
+
+  // Render top artists and top tracks if they're available to display in the html
+
+  if (data && data.top_artists && data.top_artists.items) {
+    const topArtistsList = document.getElementById("top_artists");
+    if (topArtistsList) {
+      data.top_artists.items.forEach((artist) => {
+        const li = document.createElement("li");
+        li.textContent = artist.name;
+        topArtistsList.appendChild(li);
+      });
+    }
+  }
+
+  if (data && data.top_tracks && data.top_tracks.items) {
+    const topTracksList = document.getElementById("top_tracks");
+    if (topTracksList) {
+      data.top_tracks.items.forEach((track) => {
+        const li = document.createElement("li");
+        li.textContent = track.name;
+        topTracksList.appendChild(li);
+      });
+    }
+  }
+}
+
+
+
+
+
+
 

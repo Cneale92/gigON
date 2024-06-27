@@ -9,38 +9,93 @@
     <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
 <body>
-    <header>
-        
+
+  <header>
+      
+    <div>
       <div id="logoCoupling">
-
           <h1 id="simplifiedLogo">gigON!</h1>
-          
           <h2 id="logoSubtitle">powered by Spotify</h2>
-
       </div>
 
       <div id="navButtons">
-
         <button class="navBtn">My Artists</button>
-
-        <button class="navBtn">Favorited Concerts</button>
-
-        <button class="navBtn" id="spotifyAuthenticationBtn">Log in with Spotify</button> <!--Would like to add spotify logo in here + need to add :hover styling-->
-
-      <div>
-    
-    </header>
+        <button class="navBtn" onclick="window.location.href='results.html'">Favorited Concerts</button>
+      </div>
+    </div>
+  </header>
     
 
-    <div id="heroBanner">
+  <div>
 
-      <img id="exclamationGuy" src="assets/img_assets/gigON_logo.png"><!--Actually his name is Gig-->
-
-      <h1 id="promptText">Log in to get started!</h1> <!--Prompt text-->
-
+  <div id="heroBanner">
+      <img id="exclamationGuy" src="assets/img_assets/gigON_logo.png"><!--Actually his name is Gig--><br>
+      <h1 id="promptText">Discover Live Shows Near You</h1> <!--Prompt text-->
     </div>
 
-  </main>
-  <script src="assets/scripts/script.js"></script>
+    <div id="main"></div>
+    <div id="oauth"></div>
+
+    <template id="login">
+     <button id="login-button" data-bind-onclick="loginWithSpotifyClick();"> Log in with Spotify </button>
+    </template>
+
+  <template id="logged-in-template">
+    <div id="left-panel">
+    <h1>Logged in as <span data-bind="display_name"></span></h1>
+    
+    <img width="150" data-bind-src="images[0].url" data-bind-alt="display_name" />
+    
+    <table>
+      <tr>
+        <td>Display name</td>
+        <td data-bind="display_name"></td>
+      </tr>
+      <tr>
+        <td>Id</td>
+        <td data-bind="id"></td>
+      </tr>
+      <tr>
+        <td>Country</td>
+        <td data-bind="country"></td>
+      </tr>
+    </table>
+    </div>
+
+    <div id="right-panel"> 
+    <h2>Top Artists</h2>
+      <ol class="container" id="top_artists"></ol>
+    <h2> Top Tracks</h2>
+      <ol class="container" id="top_tracks"></ol>
+    </div>
+
+</template>
+
+<button id="refresh-token-button" data-bind-onclick="refreshTokenClick();">Refresh Token</button>
+<button id="logout-button" data-bind-onclick="logoutClick();">Log out</button>
+
+
+    
+  <template id="oauth-template">
+    <h2>oAuth info</h2>
+    <table>
+      <tr>
+        <td>Access token</td>
+        <td data-bind="access_token"></td>
+      </tr>
+      <tr>
+        <td>Refresh token</td>
+        <td data-bind="refresh_token"></td>
+      </tr>
+      <tr>
+        <td>Expiration at</td>
+        <td data-bind="expires">${getExpirationDate(expires_in)}</td>
+      </tr>
+    </table>
+  </template>
+
+</div>
+
+<script src="./assets/scripts/script.js"></script>
 </body>
 </html>
