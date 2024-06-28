@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .split(",")
         .map((item) => item.trim());
       fetchAndDisplayEvents(stateCountry, city);
+      locationModal.classList.add("is-active");
     } else {
       alert("Please enter a city, state, or country code.");
     }
