@@ -1,11 +1,11 @@
-body {
+body{
 
     background-color:rgba(124, 151, 4, 0.26);
 
 }
 
 
-#allDiv {
+#allDiv{
 
     display:flex;
     flex-direction: row;
