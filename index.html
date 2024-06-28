@@ -10,9 +10,10 @@
 </head>
 <body>
 
+  
+  
   <header>
-      
-    <div>
+
       <div id="logoCoupling">
           <h1 id="simplifiedLogo">gigON!</h1>
           <h2 id="logoSubtitle">powered by Spotify</h2>
@@ -21,25 +22,39 @@
       <div id="navButtons">
         <button class="navBtn">My Artists</button>
         <button class="navBtn" onclick="window.location.href='results.html'">Favorited Concerts</button>
+        
+        <template id="login">
+          <button class="navBtn" id="spotifyAuthenticationBtn" id="login-button" data-bind-onclick="loginWithSpotifyClick();"> Log in with Spotify </button>
+        </template>
+
       </div>
-    </div>
+    
   </header>
     
 
-  <div>
+  
 
   <div id="heroBanner">
       <img id="exclamationGuy" src="assets/img_assets/gigON_logo.png"><!--Actually his name is Gig--><br>
-      <h1 id="promptText">Discover Live Shows Near You</h1> <!--Prompt text-->
+      <h1 id="promptText">Discover Live Shows Near You </h1> <!--Prompt text-->
+  </div>
+
+  <div id="main">
+
+    <!--Should generate top artists chart-->
+
+    <div id="">
+
     </div>
 
-    <div id="main"></div>
-    <div id="oauth"></div>
 
-    <template id="login">
-     <button id="login-button" data-bind-onclick="loginWithSpotifyClick();"> Log in with Spotify </button>
-    </template>
 
+  </div>
+  <div id="oauth"></div> <!--band aid solution this will mess up stuff-->
+  
+    
+
+   
   <template id="logged-in-template">
     <div id="left-panel">
     <h1>Logged in as <span data-bind="display_name"></span></h1>
