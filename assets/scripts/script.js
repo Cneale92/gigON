@@ -116,6 +116,8 @@ async function redirectToSpotifyAuthorize() {
   window.location.href = authUrl.toString(); // Redirect the user to the authorization server for login
 }
 
+window.location.reload();
+
 // Spotify API Calls
 
 // function to get token from local storage
