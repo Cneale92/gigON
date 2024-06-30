@@ -192,7 +192,7 @@ async function refreshTokenClick() {
   renderTemplate("oauth", "oauth-template", currentToken);
 }
 
-// HTML Template Rendering with basic data binding - demoware only.
+// HTML Template Rendering with basic data binding
 function renderTemplate(targetId, templateId, data = null) {
   const template = document.getElementById(templateId);
   if (!template) {

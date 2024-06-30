@@ -9,8 +9,6 @@
 </head>
 <body>
 
-    <div id="results"></div>
-
     <div class="modal" id="location-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -19,7 +17,7 @@
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <input type="text" id="location-input" class="input" placeholder="Enter city, state or zip code">
+                <input type="text" id="location-input" class="input" placeholder="San Diego, CA">
             </section>
             <footer class="modal-card-foot">
                 <button id="search-button" class="button is-success">Search</button>
@@ -29,58 +27,21 @@
     </div>
 
     <div id="allDiv">
-    
-        
-        <div id="leftDiv"> <!--idk what to call this-->
-
+        <div id="leftDiv"> 
             <div id="homeButton">
-                
-                <button a href="index.html" class="button is-large" id="homeIcon">HOME</button> <!--Needs home icon-->
+                <button class="button is-large" id="homeIcon" onclick="window.location.href='index.html'">HOME</button>
 
                 <button id="open-modal-button" class="button is-large">Enter Location</button>
-
             </div>
-
             <div id="tipAndGig">
-
-                <h1 id="tipBox"> Keep tabs on events by adding them to your favorites folder! You'll be able to find it on the home page!</h1>
-
+                <h1 id="tipBox"> Use your city and state to find concerts near you!</h1>
                 <img id ="Gig" src="assets/img_assets/gig_chr.png">
-
             </div>
-
-                
+            <h1 id="findConcert">FIND A CONCERT</h1>
         </div>
-
-
-        <div id="searchResultsDiv">
-
-            <h1 id="text_search_results">Search Results</h1> <!--May add icon here-->
-
-            <div id="concertResultBoxContainer"> 
-
-                <!--Append these boxes with javascript-->
-
-                <div class="concertListing">
-
-                    <img class="venuePicture" src="">
-                    
-                    <div class="details">
-            
-                        <h2 id="venue"><strong>"VENUE"</strong></h2>
-                        <h2 id ="dateAndTime"><strong>"1/1/11 1:11am"</strong></h2>
-                        <h2 id="location"><strong>"LOCATION, TX"</strong></h2>
-            
-                    </div>
-            
-                    <div class="favoriteBtnContainer">
-            
-                        <button id="favoriteBtn" class="button is-medium">FAVORITE</button> <!--temporarily looks like this (needs icon subbed)-->
-            
-                    </div>
-            
-            </div>
-
+        
+        <div id="rightDiv">
+            <div id="results"></div>       
         </div>
 
     </div>
