@@ -1,3 +1,13 @@
+#main{
+
+    background-color: rgba(124, 151, 4, 0.26);
+    display:flex;
+    justify-content: center;
+    height:auto;
+
+}
+
+
 header{
 
     background-color: rgba(124, 151, 4, 0.26); /*Not final */
@@ -6,9 +16,14 @@ header{
 
     flex-direction: row;
 
-    width:1920px;
+    width:auto;
 
     height:125px;
+
+    align-content: center;
+
+
+    
 
 }
 
@@ -16,6 +31,7 @@ header{
 
     margin-left:20px;
     margin-right:70px;
+    align-content: center;
 }
 
 #simplifiedLogo{
@@ -30,7 +46,7 @@ header{
 
 #logoSubtitle{
 
-    margin-top:-15px;
+    margin-top:-10px;
 
 }
 
@@ -38,10 +54,16 @@ header{
 
     margin-top: auto;
     margin-bottom: auto;
+    width:1300px;
 
     display: flex; 
 
     align-items: center;
+    margin-left:300px; /*will find a better way to center this or otherwise */
+
+   
+    
+
 
 }
 
@@ -65,11 +87,17 @@ header{
 
 #spotifyAuthenticationBtn{
 
-    margin-left:300px;
+    
+    height:100px;
     width:500px;
     padding:20px;
     font-size: xx-large;
+    
+    margin-top:25px;
+    
+    
 
+    
 }
 
 
@@ -87,7 +115,7 @@ header{
 
     --bannerColor: rgba(255, 166, 0, 0.501);
      background-color: var(--bannerColor);  /* Color may be used more than once */
-    
+    height:600px;
 }
 
 #exclamationGuy{
@@ -111,5 +139,14 @@ header{
 
     transform:translateY(-200px); 
     
+
+}
+
+
+/*HOVER */
+
+.navBtn:hover{
+
+    background-color: rgba(255, 255, 0, 0.386);
 
 }
