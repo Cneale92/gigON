@@ -1,30 +1,36 @@
-#main{
+#main {
 
-    background-color: rgba(124, 151, 4, 0.26);
+    background-color: #e0eeb4;
     display:flex;
     justify-content: center;
-    height:auto;
+    height: fit-content;
+    color: black;
 
 }
+
+#left-panel {
+    display: column;
+    justify-content: left;
+    margin-right: 200px;
+}
+
+#right-panel {
+    display: column;
+    justify-content: right;
+    margin-right: 200px;
+}
+
 
 
 header{
 
-    background-color: rgba(124, 151, 4, 0.26); /*Not final */
-
+    background-color: #e0eeb4;
+    color: black;
     display: flex;
-
     flex-direction: row;
-
     width:auto;
-
     height:125px;
-
     align-content: center;
-
-
-    
-
 }
 
 #logoCoupling{
@@ -37,9 +43,7 @@ header{
 #simplifiedLogo{
 
     font-size: 48px;
-
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-
+    font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     color:black;
 
 }
@@ -50,71 +54,59 @@ header{
 
 }
 
-#navButtons{
-
-    margin-top: auto;
-    margin-bottom: auto;
-    width:1300px;
-
-    display: flex; 
-
-    align-items: center;
-    margin-left:300px; /*will find a better way to center this or otherwise */
-
-   
-    
-
-
-}
-
 .navBtn{
 
     width:350px;
     margin:30px;
-    
-    border:none;
-    background-color:rgba(255, 166, 0, 0.501);
+    border: none;
+    background-color:#f7d974;
     border-radius:10px;
-
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     font-size: x-large;
-
     padding:10px;
-
     justify-content: center;
-
 }
 
-#spotifyAuthenticationBtn{
+.token {
 
-    
+    width:100px;
+    margin:30px;
+    border-color: black;
+    background-color:#f7d974;
+    border-radius: 10px;
+    font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+    font-size: medium;
+    justify-content: center;
+}
+
+#login-button {
+
     height:100px;
     width:500px;
     padding:20px;
     font-size: xx-large;
-    
     margin-top:25px;
-    
-    
-
     
 }
 
-
-
-
-
-
+.button {
+    background-color: #f7d974;
+    color: black;
+    height: 100px;
+    width: 350px;
+    font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: center;
+    font-size: x-large;
+    margin-top: 25px;
+}
 
 
 
 #heroBanner{
 
-    
-
-
-    --bannerColor: rgba(255, 166, 0, 0.501);
-     background-color: var(--bannerColor);  /* Color may be used more than once */
+    background-color: #f7d974;
     height:600px;
 }
 
@@ -130,23 +122,22 @@ header{
 #promptText{
 
     text-align: center;
-
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-
+    font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     font-size: 48px;
-
     color:black;
-
     transform:translateY(-200px); 
-    
-
 }
-
-
-/*HOVER */
 
 .navBtn:hover{
 
-    background-color: rgba(255, 255, 0, 0.386);
+    background-color: #e0eeb4;
 
+}
+
+#oauth-template {
+    display: none;
+}
+
+#top_artists {
+    font-size: 25px;
 }

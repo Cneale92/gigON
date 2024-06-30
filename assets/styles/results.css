@@ -1,29 +1,23 @@
 body {
-
-    background-color:rgba(124, 151, 4, 0.26);
+    background-color: #e0eeb4;
     height:2000px;
-
 }
 
 
 #allDiv {
-
     display:flex;
     flex-direction: row;
     justify-content: space-around;
-
 }
 
 
 
-
-/*left div */
 #leftDiv{
 
     display:flex;
     flex-direction: column;
     justify-content: center;
-
+    position: absolute left;
 }
 
 #homeButton{
@@ -31,9 +25,6 @@ body {
     display:flex;
     margin-top:20px;
     
-    
-    
-
 }
 
 #leftDiv button{
@@ -44,7 +35,7 @@ body {
 
 #homeIcon{
 
-    background-color:rgba(255, 166, 0, 0.501);
+    background-color: #f7d974;
 
 }
 
@@ -77,21 +68,7 @@ body {
 
 }
 
-
-
-
-
-/* Search results div */
-#searchResultsDiv{
-    
-    display: flex;
-    flex-direction: column;
-    
-
-}
-
-#text_search_results{
-
+#findConcert {
     margin-top:20px;
     font-weight: bold;
     border-radius:10px;
@@ -104,62 +81,64 @@ body {
     padding:20px;
     font-size:xx-large;
 
-    background-color:orange; /*Not final */
-
+    background-color: #f7d974; 
+    color: white;
 }
 
-#concertResultBoxContainer{
-
-    height:auto;
-    margin-top:20px;
-
-}
-
-.concertListing{
-
+.event{
     width:700px;
-    display:flex;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-top:50px;
-
     padding:20px;
-    border-radius: 50px;
-
-    background-color: rgba(255, 166, 0, 0.501);
-    
-
+    border-radius: 20px;
+    background-color: #f7d974;
 }
 
-.venuePicture{
+.event h2 {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.event img {
 
     width:240px;
     border:solid;
-    height:135px;
+    height: 135px;
     display: flex;
     margin-top:auto;
     margin-bottom:auto;
     border-color:aliceblue;
+    justify-content: center;
 
 }
 
-.details{
-
+.event p {
+    color: black;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-
 }
 
-.favoriteBtnContainer{
-
-    margin-bottom:auto;
-    margin-top:auto;  
-
+.event a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e0eeb4; 
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
-#favoriteBtn{
+.event a:hover {
+    background-color: #2e8b57; 
+}
 
-    padding:20px;
-    border-radius:60px;
-
+#results {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
 }
