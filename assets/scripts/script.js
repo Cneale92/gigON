@@ -47,11 +47,11 @@ if (code) {
 
     const updatedUrl = url.search ? url.href : url.href.replace("?", "");
     window.history.replaceState({}, document.title, updatedUrl);
+    //Reload the page after saving the token
+    window.location.reload();
   })();
 }
-   //Reload the page after saving the token
-    window.location.reload();
-
+   
 
 // If we have a token, we're logged in, so fetch user data and render logged in template
 if (currentToken.access_token) {
