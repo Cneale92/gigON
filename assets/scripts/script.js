@@ -116,6 +116,15 @@ async function redirectToSpotifyAuthorize() {
   window.location.href = authUrl.toString(); // Redirect the user to the authorization server for login
 }
 
+(function () {
+  if (window.localStorage) {
+    if (!localStorage.getItem("firstLoad")) {
+      localStorage["firstLoad"] = true;
+      window.location.reload();
+    } else localStorage.removeItem("firstLoad");
+  }
+})();
+
 // Spotify API Calls
 
 // function to get token from local storage
@@ -192,7 +201,7 @@ async function refreshTokenClick() {
   renderTemplate("oauth", "oauth-template", currentToken);
 }
 
-// HTML Template Rendering with basic data binding
+// HTML Template Rendering with basic data binding - demoware only.
 function renderTemplate(targetId, templateId, data = null) {
   const template = document.getElementById(templateId);
   if (!template) {
