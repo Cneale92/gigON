@@ -29,6 +29,12 @@ body {
 
 #homeIcon {
     background-color: #000000;
+    color: white;
+}
+
+#locationButton {
+    background-color: black;
+    color: white;
 }
 
 #findConcert {
