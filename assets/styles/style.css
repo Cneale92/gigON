@@ -1,6 +1,6 @@
 #main {
 
-    background-color: #e0eeb4;
+    background-color: #1DB954;
     display:flex;
     justify-content: center;
     height: fit-content;
@@ -24,7 +24,7 @@
 
 header{
 
-    background-color: #e0eeb4;
+    background-color: #1DB954;
     color: black;
     display: flex;
     flex-direction: row;
@@ -59,7 +59,8 @@ header{
     width:350px;
     margin:30px;
     border: none;
-    background-color:#f7d974;
+    background-color:black;
+    color: white;
     border-radius:10px;
     font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     font-size: x-large;
@@ -72,7 +73,7 @@ header{
     width:100px;
     margin:30px;
     border-color: black;
-    background-color:#f7d974;
+    background-color: black;
     border-radius: 10px;
     font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     font-size: medium;
@@ -90,8 +91,8 @@ header{
 }
 
 .button {
-    background-color: #f7d974;
-    color: black;
+    background-color: black;
+    color: white;
     height: 100px;
     width: 350px;
     font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
@@ -106,7 +107,7 @@ header{
 
 #heroBanner{
 
-    background-color: #f7d974;
+    background-color: #1DB954;
     height:600px;
 }
 
@@ -130,12 +131,12 @@ header{
 
 .navBtn:hover{
 
-    background-color: #e0eeb4;
+    background-color: #1DB954;
 
 }
 
 #oauth-template {
-    color: #e0eeb4;
+    color: #1DB954;
 }
 
 #top_artists {

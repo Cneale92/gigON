@@ -1,121 +1,85 @@
 body {
-    background-color: #e0eeb4;
-
+    background-color: #1DB954;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0; 
 }
-
 
 #allDiv {
-    display:flex;
-    flex-direction: row;
+    display: flex;
     justify-content: space-around;
+    padding: 20px;
 }
 
-
-
-#leftDiv{
-
-    display:flex;
+#leftDiv {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     position: absolute left;
 }
 
-#homeButton{
-
-    display:flex;
-    margin-top:20px;
-    
-}
-
-#leftDiv button{
-
-    margin-right:20px;
-
-}
-
-#homeIcon{
-
-    background-color: #f7d974;
-
-}
-
-#tipAndGig{
-
-    margin-top:100px;
-
-    flex-direction: column;
-
-}
-
-#tipBox{
-
-    background-color: aliceblue;
-    border-radius:20px;
-    padding:20px;
-    font-size:x-large;
-    font-weight: bold;
-    text-align:center;
-    width:800px;
-
-}
-
-#Gig{
-
+#homeButton {
     display: flex;
-    margin-left: auto;
-    margin-right:auto;
-    margin-top:50px;
+    margin-top: 20px;
+}
 
+#leftDiv button {
+    margin-right: 20px;
+}
+
+#homeIcon {
+    background-color: #000000;
 }
 
 #findConcert {
-    margin-top:20px;
+    margin-top: 20px;
     font-weight: bold;
-    border-radius:10px;
-    width:700px;
-    height:fit-content;
-
-    text-align:center;
-
-    padding:20px;
-    font-size:xx-large;
-
-    background-color: #f7d974; 
+    border-radius: 10px;
+    width: 700px;
+    height: fit-content;
+    text-align: center;
+    padding: 20px;
+    font-size: xx-large;
+    background-color: black; 
     color: white;
 }
 
-.event{
-    width:500px;
+.event {
+    flex: 1 1 calc(50% - 40px);
+    max-width: calc(50% - 40px); 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-top:50px;
-    padding:20px;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 20px;
+    padding: 20px;
     border-radius: 20px;
-    background-color: #f7d974;
+    background-color: #000000;
+    color: white;
 }
 
 .event h2 {
-    color: black;
+    color: white;
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.event img {
-
-    width:240px;
-    border:solid;
-    height: 135px;
+.image-container {
     display: flex;
-    margin-top:auto;
-    margin-bottom:auto;
-    border-color:aliceblue;
+    justify-content: center;
     align-items: center;
+    width: 240px;
+    height: 135px;
+    border: solid 1px aliceblue;
+}
 
+.event img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .event p {
-    color: black;
+    color: white;
     font-size: 18px;
     display: flex;
     justify-content: center;
@@ -125,8 +89,8 @@ body {
 .event a {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #e0eeb4; 
-    color: black;
+    background-color: #1DB954; 
+    color: white;
     text-decoration: none;
     border-radius: 5px;
     margin-top: 10px;
@@ -138,6 +102,9 @@ body {
 
 #results {
     margin-top: 20px;
-    display: block;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
 }
