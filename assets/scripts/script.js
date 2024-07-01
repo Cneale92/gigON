@@ -1,3 +1,5 @@
+// Getting a handle on code we will need to use to make calls to the API
+
 const clientId = "5e0f086d63214b34941f736646713e5c";
 const redirectUrl = "https://cneale92.github.io/gigON/";
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
@@ -35,25 +37,25 @@ const currentToken = {
 const args = new URLSearchParams(window.location.search);
 const code = args.get("code");
 
-// If we find a code, we're in a callback, do a token exchange
+// If we find a code, we're in a callback and need to do a token exchange
 if (code) {
   (async () => {
     const token = await getToken(code);
     currentToken.save(token);
 
-    // Remove code from URL so we can refresh correctly.
+    // Remove code from URL so we can refresh correctly
     const url = new URL(window.location.href);
     url.searchParams.delete("code");
 
     const updatedUrl = url.search ? url.href : url.href.replace("?", "");
     window.history.replaceState({}, document.title, updatedUrl);
-    //Reload the page after saving the token
+    //Reloads the page after saving the token so data is automatically displayed
     window.location.reload();
   })();
 }
    
 
-// If we have a token, we're logged in, so fetch user data and render logged in template
+// If we have a token, we're logged in, so we can fetch user data and render logged in template
 if (currentToken.access_token) {
   (async () => {
     const userData = await getUserData();
@@ -65,7 +67,6 @@ if (currentToken.access_token) {
       top_artists: topArtists,
     };
 
-    console.log("User data fetched:", combinedData);
     renderTemplate("main", "logged-in-template", combinedData);
     renderTemplate("oauth", "oauth-template", currentToken);
 
@@ -76,12 +77,11 @@ if (currentToken.access_token) {
     );
   })();
 } else {
-  // Otherwise we're not logged in, so render the login template
+  // If we're not logged in, we render the login template
   renderTemplate("main", "login");
 }
 
 async function redirectToSpotifyAuthorize() {
-  console.log("Redirecting to Spotify for authorization...");
 
   const possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -115,7 +115,6 @@ async function redirectToSpotifyAuthorize() {
   };
 
   authUrl.search = new URLSearchParams(params).toString();
-  console.log(`Auth URL: ${authUrl.toString()}`);
   window.location.href = authUrl.toString(); // Redirect the user to the authorization server for login
 }
 
@@ -178,7 +177,7 @@ async function getTopArtists() {
   return await response.json();
 }
 
-// Click handlers
+// Click handlers for our different buttons
 
 async function loginWithSpotifyClick() {
   await redirectToSpotifyAuthorize();
@@ -195,11 +194,10 @@ async function refreshTokenClick() {
   renderTemplate("oauth", "oauth-template", currentToken);
 }
 
-// HTML Template Rendering with basic data binding - demoware only.
+// HTML Template Rendering with code for data binding for Spotify's API
 function renderTemplate(targetId, templateId, data = null) {
   const template = document.getElementById(templateId);
     if (!template) {
-      console.error(`Template with ID '${templateId}' not found.`);
       return;
     }
     
@@ -221,7 +219,7 @@ function renderTemplate(targetId, templateId, data = null) {
       const prefix = targetType === "PROPERTY" ? "data." : "";
       const expression = prefix + attr.value.replace(/;\n\r\n/g, "");
 
-      // Evaluate and bind the expression to the element
+      // Evaluates and binds the expression to the element
       try {
         ele[targetProp] =
           targetType === "PROPERTY"
@@ -231,20 +229,19 @@ function renderTemplate(targetId, templateId, data = null) {
               };
         ele.removeAttribute(attr.name);
       } catch (ex) {
-        console.error(`Error binding ${expression} to ${targetProp}`, ex);
+          return;
       }
     });
   });
 
   const target = document.getElementById(targetId);
   if (!target) {
-    console.error(`Target element with ID '${targetId}' not found.`);
     return;
   }
   target.innerHTML = "";
   target.appendChild(clone);
 
-  // Render top artists if they're available to display in the html
+  // Renders the top artists if they're available to display in the html
 
   if (data && data.top_artists && data.top_artists.items) {
     const topArtistsList = document.getElementById("top_artists");
