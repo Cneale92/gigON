@@ -1,3 +1,4 @@
+
 body {
     background-color: #1DB954;
     font-family: 'Arial', sans-serif;
@@ -28,7 +29,13 @@ body {
 }
 
 #homeIcon {
-    background-color: #000000;
+    background-color: black;
+    color: white;
+}
+
+.locationButton {
+    background-color: black;
+    color: white;
 }
 
 #findConcert {
