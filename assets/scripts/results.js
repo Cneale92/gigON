@@ -1,3 +1,5 @@
+// Event Listener for the location search modal
+
 document.addEventListener("DOMContentLoaded", function () {
     const openModalButton = document.getElementById("open-modal-button");
     const closeModalButtons = document.querySelectorAll(".delete, .cancel-button");
@@ -25,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Search button event listener
         searchButton.addEventListener("click", function () {
             const locationValue = locationInput.value.trim();
-            const locationPattern = /^[a-zA-Z\s]+,\s*[A-Z]{2}$/; // Regex pattern for "City, StateCode" format
+            const locationPattern = /^[a-zA-Z\s]+,\s*[A-Z]{2}$/; // Regex pattern for "City, StateCode" format Ticketmaster requires
 
             if (!locationPattern.test(locationValue)) {
                 const errorMessage = document.getElementById("error-message");
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  // Function to display events on the page
+  // Function to display events on the page and append the results to the html
   function displayEvents(events) {
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "";
