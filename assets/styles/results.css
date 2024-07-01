@@ -1,3 +1,4 @@
+
 body {
     background-color: #1DB954;
     font-family: 'Arial', sans-serif;
@@ -32,7 +33,7 @@ body {
     color: white;
 }
 
-#locationButton {
+.locationButton {
     background-color: black;
     color: white;
 }
