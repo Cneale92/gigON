@@ -123,10 +123,15 @@ document.addEventListener("DOMContentLoaded", function () {
       eventDiv.appendChild(eventName);
 
       if (event.images && event.images.length > 0) {
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "image-container";
+
         const eventImage = document.createElement("img");
         eventImage.src = event.images[0].url;
         eventImage.alt = event.name;
-        eventDiv.appendChild(eventImage);
+
+        imageContainer.appendChild(eventImage);
+        eventDiv.appendChild(imageContainer);
       }
 
       if (event.dates && event.dates.start && event.dates.start.dateTime) {
