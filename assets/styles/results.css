@@ -85,7 +85,7 @@ body {
 }
 
 .event{
-    width:700px;
+    width:500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -110,7 +110,7 @@ body {
     margin-top:auto;
     margin-bottom:auto;
     border-color:aliceblue;
-    justify-content: center;
+    align-items: center;
 
 }
 
