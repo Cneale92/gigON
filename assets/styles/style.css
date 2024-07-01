@@ -135,8 +135,7 @@ header{
 }
 
 #oauth-template {
-    display: block;
-    visibility: hidden;
+    display: none;
 }
 
 #top_artists {

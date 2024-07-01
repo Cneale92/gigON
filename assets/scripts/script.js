@@ -116,7 +116,6 @@ async function redirectToSpotifyAuthorize() {
   window.location.href = authUrl.toString(); // Redirect the user to the authorization server for login
 }
 
-
 // Spotify API Calls
 
 // function to get token from local storage
@@ -196,6 +195,11 @@ async function refreshTokenClick() {
 // HTML Template Rendering with basic data binding - demoware only.
 function renderTemplate(targetId, templateId, data = null) {
   const template = document.getElementById(templateId);
+    if (!template) {
+      console.error(`Template with ID '${templateId}' not found.`);
+      return;
+    }
+    
   const clone = template.content.cloneNode(true);
 
   const elements = clone.querySelectorAll("*");
