@@ -1,6 +1,6 @@
 body {
     background-color: #e0eeb4;
-    height:2000px;
+
 }
 
 
@@ -72,7 +72,6 @@ body {
     margin-top:20px;
     font-weight: bold;
     border-radius:10px;
-
     width:700px;
     height:fit-content;
 
@@ -86,7 +85,7 @@ body {
 }
 
 .event{
-    width:700px;
+    width:500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -111,7 +110,7 @@ body {
     margin-top:auto;
     margin-bottom:auto;
     border-color:aliceblue;
-    justify-content: center;
+    align-items: center;
 
 }
 
