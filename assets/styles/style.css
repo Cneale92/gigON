@@ -1,5 +1,11 @@
-#main {
+html, body {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: 100%;
+}
 
+#main {
     background-color: #1DB954;
     display:flex;
     justify-content: center;
@@ -20,10 +26,7 @@
     margin-right: 200px;
 }
 
-
-
 header{
-
     background-color: #1DB954;
     color: black;
     display: flex;
@@ -34,28 +37,22 @@ header{
 }
 
 #logoCoupling{
-
     margin-left:20px;
     margin-right:70px;
     align-content: center;
 }
 
 #simplifiedLogo{
-
     font-size: 48px;
     font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     color:black;
-
 }
 
 #logoSubtitle{
-
     margin-top:-10px;
-
 }
 
 .navBtn{
-
     width:350px;
     margin:30px;
     border: none;
@@ -69,7 +66,6 @@ header{
 }
 
 .token {
-
     width:100px;
     margin:30px;
     border-color: black;
@@ -82,7 +78,6 @@ header{
 }
 
 #login-button {
-
     height:100px;
     width:500px;
     padding:20px;
@@ -104,21 +99,15 @@ header{
     margin-top: 25px;
 }
 
-
-
 #heroBanner{
-
     background-color: #1DB954;
     height:600px;
 }
 
 #exclamationGuy{
-
-    
     display:block;
     margin-left:auto;
     margin-right:auto;
-
 }
 
 #promptText{
